@@ -1,0 +1,32 @@
+{
+  "name": "briofy/tag-laravel",
+  "description": "The official repository of Tag module from Briofy for Laravel",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Hosein Danamehr",
+      "email": "h.danamehr@briofy.net"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "briofy/repository-laravel": "dev-main",
+    "briofy/rest-laravel": "dev-main"
+  },
+  "require-dev": {
+    "laravel/pint": "^1.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "Briofy\\Tag\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Briofy\\Tag\\Providers\\TagServiceProvider"
+      ]
+    }
+  }
+}
