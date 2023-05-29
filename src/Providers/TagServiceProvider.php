@@ -10,19 +10,19 @@ class TagServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../Config/tag.php', 'tag');
+        $this->mergeConfigFrom(__DIR__.'/../Config/briofy-tag.php', 'briofy-tag');
     }
 
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__.'/../Routes/tag.php');
+        $this->loadRoutesFrom(__DIR__.'/../Routes/tags.php');
 
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
 
             $this->publishes([
-                __DIR__.'/../Config/tag.php' => config_path('tag.php'),
-            ], 'tag-config');
+                __DIR__.'/../Config/briofy-tag.php' => config_path('briofy-tag.php'),
+            ], 'briofy-tag-config');
         }
 
         $this->app->bind(ITagRepository::class, TagRepository::class);
