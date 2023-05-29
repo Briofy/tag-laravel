@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'route_prefix' => 'tags',
+    'route' => [
+        'prefix' => '/api',
+    ],
 ];

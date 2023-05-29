@@ -15,7 +15,7 @@ class TagServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__.'/../Routes/tag.php');
+        $this->loadRoutesFrom(__DIR__.'/../Routes/tags.php');
 
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
