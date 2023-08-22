@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::connection(config('briofy-tag.database.connection'))
             ->create('tags', function (Blueprint $table) {
-                config('briofy-tag.database.uuid') ? $table->uuid()->primary() : $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+                config('briofy-tag.database.uuid') ? $table->uuid()->primary('uuid') : $table->id();
+                $table->string('name');
+                $table->string('slug')->unique();
+                $table->timestamps();
+                $table->softDeletes();
+            });
     }
 
     /**
