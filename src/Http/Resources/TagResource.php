@@ -11,7 +11,7 @@ class TagResource extends JsonResource
         $IdType = config('briofy-tag.database.uuid') ? 'uuid' : 'id';
         return [
             $IdType => $this->id,
-            'title' => $this->title,
+            'name' => $this->name,
             'slug' => $this->slug,
         ];
     }
