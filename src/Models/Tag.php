@@ -16,7 +16,7 @@ class Tag extends Model
 
     private $uuids = false;
 
-    public array $fillables = ['name', 'slug'];
+    public array $fillables = [];
 
     public function __construct(array $attributes = [])
     {
@@ -27,13 +27,15 @@ class Tag extends Model
             $this->primaryKey = 'uuid';
             $this->keyType = 'string';
             $this->incrementing = false;
-            $this->fillables[] = 'uuid';
+            array_merge($this->fillables, ['uuid']);
         }
     }
 
-    public function setFillable(array $fillable): void
+    protected $fillable = ['name', 'slug'];
+
+    public function mergeFillable(array $fillable)
     {
-        $this->fillable = $this->fillables;
+        $this->fillables = array_merge($this->fillables, $fillable);
     }
 
     protected $hidden = ['pivot'];

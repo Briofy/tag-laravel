@@ -14,7 +14,7 @@ class Taggable extends Model
     private bool $uuids, $taggableUuids = false;
     private string $fillablesTagId = 'tag_id';
     private string $fillablesTaggableId = 'taggable_id';
-    public array $fillables = ['taggable_type'];
+    public array $fillables = [];
 
     public function __construct(array $attributes = [])
     {
@@ -32,13 +32,13 @@ class Taggable extends Model
         $this->fillables = array_merge($this->fillables, [$this->fillablesTagId, $this->fillablesTaggableId]);
     }
 
-    /**
-     * @param string[] $fillable
-     */
-    public function setFillable(array $fillable): void
+    protected $fillable = ['taggable_type'];
+
+    public function mergeFillable(array $fillable)
     {
-        $this->fillable = $this->fillables;
+        $this->fillables = array_merge($this->fillables, $fillable);
     }
+
     public function tag()
     {
         return $this->belongsTo(Tag::class);
