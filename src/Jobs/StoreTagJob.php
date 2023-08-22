@@ -10,7 +10,7 @@ class StoreTagJob
 {
     use Dispatchable, SerializesModels;
 
-    public function __construct(private string $name) {
+    public function __construct(private string $name, private array $taggable = []) {
 
     }
 
@@ -19,6 +19,6 @@ class StoreTagJob
      */
     public function handle(ITagRepository $tagRepository)
     {
-        return $tagRepository->store($this->name);
+        return $tagRepository->store($this->name, $this->taggable);
     }
 }
