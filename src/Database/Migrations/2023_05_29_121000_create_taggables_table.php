@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::connection(config('briofy-tag.database.connection'))
             ->create('taggables', function (Blueprint $table) {
                 config('briofy-tag.database.uuid') ? $table->foreignUuid('tag_uuid')->references('uuid')->on('tags')->cascadeOnUpdate()->cascadeOnDelete()
-                    : $table->foreignId('tag_id')->references('uuid')->on('tags')->cascadeOnUpdate()->cascadeOnDelete();
+                    : $table->foreignId('tag_id')->references('id')->on('tags')->cascadeOnUpdate()->cascadeOnDelete();
                 config('briofy-tag.database.taggable_uuid') ? $table->uuidMorphs('taggable')
                     : $table->morphs('taggable');
             });
