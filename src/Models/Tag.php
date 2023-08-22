@@ -12,9 +12,7 @@ class Tag extends Model
 {
     use HasUuids, HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'title',
-    ];
+    protected $fillable = [ 'title', 'slug'];
 
     protected $hidden = ['pivot'];
 

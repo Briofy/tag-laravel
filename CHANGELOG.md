@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## Unreleased - 2023-08-21
+
+### Added
+ - Add `uuid` to migrations and config file.
+ - Add `enabled`, `name`, and `middleware` to routes and config file.
+ - Add `taggable_uuid` to config file and update migrations.
+
+### Changes
+ - Extend controller from `RestController` class from `briofy/rest-laravel` package.
+ - Update config file routes object.
 
 ## [0.0.0] - 2023-05-29
 ### Add

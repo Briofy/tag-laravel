@@ -2,7 +2,7 @@
 
 namespace Briofy\Tag\Http\Controllers;
 
-use Briofy\RestLaravel\Http\Traits\Respond;
+use Briofy\RestLaravel\Http\Controllers\RestController;
 use Briofy\Tag\Http\Resources\TagResource;
 use Briofy\Tag\Repositories\ITagRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -11,12 +11,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 
-class TagController
+class TagController extends RestController
 {
-    use AuthorizesRequests;
-    use DispatchesJobs;
-    use ValidatesRequests;
-    use Respond;
 
     public function __construct(
         private ITagRepository $tagRepository

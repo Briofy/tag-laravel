@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('taggables', function (Blueprint $table) {
-            $table->uuid('tag_id')->index();
-            $table->uuidMorphs('taggable');
+        Schema::connection(config('briofy-tag.database.connection'))
+            ->create('taggables', function (Blueprint $table) {
+                config('briofy-tag.database.uuid') ? $table->foreignUuid('tag_id')->constrained('tags')->cascadeOnUpdate()->cascadeOnDelete()
+                    : $table->foreignId('tag_id')->constrained('tags')->cascadeOnUpdate()->cascadeOnDelete();
+                config('briofy-tag.database.taggable_uuid') ? $table->uuidMorphs('taggable')
+                    : $table->morphs('taggable');
         });
     }
 

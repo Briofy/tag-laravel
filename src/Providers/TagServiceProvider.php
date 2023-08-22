@@ -15,7 +15,8 @@ class TagServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__.'/../Routes/tags.php');
+        if (config('briofy-tag.routes.api.enabled')) $this->loadRoutesFrom(__DIR__.'/../Routes/api.php');
+        if (config('briofy-tag.routes.web.enabled')) $this->loadRoutesFrom(__DIR__.'/../Routes/web.php');
 
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');

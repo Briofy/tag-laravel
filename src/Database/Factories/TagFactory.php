@@ -13,8 +13,7 @@ class TagFactory extends Factory
     {
         return [
             'title' => $this->faker->word(),
-            'slug' => $this->faker->slug(),
-            'icon' => null,
+            'slug' => $this->faker->slug()
         ];
     }
 }

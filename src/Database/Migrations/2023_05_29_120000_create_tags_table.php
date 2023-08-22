@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tags', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+        Schema::connection(config('briofy-tag.database.connection'))
+            ->create('tags', function (Blueprint $table) {
+                config('briofy-tag.database.uuid') ? $table->uuid('id')->primary() : $table->id();
             $table->string('title');
-            $table->string('slug')->nullable();
-            $table->string('icon')->nullable();
+            $table->string('slug');
             $table->timestamps();
             $table->softDeletes();
         });

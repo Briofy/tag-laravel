@@ -8,8 +8,9 @@ class TagResource extends JsonResource
 {
     public function toArray($request): array
     {
+        $IdType = config('briofy-tag.database.uuid') ? 'uuid' : 'id';
         return [
-            'uuid' => $this->id,
+            $IdType => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
         ];
