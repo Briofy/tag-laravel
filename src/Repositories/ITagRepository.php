@@ -10,4 +10,6 @@ interface ITagRepository
     public function list(): LengthAwarePaginator;
 
     public function single(string|int $value, string $column = 'id'): Model;
+
+    public function store(string $name, array $taggable = []): Model;
 }

@@ -2,16 +2,14 @@
 
 namespace Briofy\Tag\Models;
 
-use Database\Factories\TagFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class Tag extends Model
+class Taggable extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     private $uuids = false;
 
@@ -19,7 +17,7 @@ class Tag extends Model
     {
         parent::__construct($attributes);
         $this->setConnection(config('briofy-tag.database.connection'));
-        $this->uuids = config('briofy-tag.database.uuid', false);
+        $this->uuids = config('briofy-tag.database.taggable_uuid', false);
         if($this->uuids){
             $this->primaryKey = 'uuid';
             $this->keyType = 'string';
@@ -27,14 +25,7 @@ class Tag extends Model
         }
     }
 
-    protected $fillable = [ 'name', 'slug'];
-
-    protected $hidden = ['pivot'];
-
-    protected static function newFactory()
-    {
-        return TagFactory::new();
-    }
+    protected $fillable = [ 'tag_id', 'taggable_id', 'taggable_type'];
 
     protected function initializeTraits()
     {
@@ -53,18 +44,9 @@ class Tag extends Model
         });
     }
 
-    public static function boot()
+    public function tag()
     {
-        parent::boot();
-
-        static::creating(function ($tag) {
-            $tag->slug = Str::slug($tag->name);
-        });
-    }
-
-    public function taggables(): HasMany
-    {
-        return $this->hasMany(Taggable::class);
+        return $this->belongsTo(Tag::class);
     }
 
 }

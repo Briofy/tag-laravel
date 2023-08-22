@@ -19,6 +19,15 @@ class TagRepository extends AbstractRepository implements ITagRepository
         return $this->model->where($column, $value)->firstOrFail();
     }
 
+    public function store(string $name, array $taggable = []): Model
+    {
+        $tag = $this->model->firstOrCreate(['name' => $name]);
+        if ($taggable) {
+            $tag->taggable()->sync($taggable);
+        }
+        return $tag;
+    }
+
     protected function instance(array $attributes = []): Model
     {
         return new Tag();

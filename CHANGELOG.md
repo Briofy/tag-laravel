@@ -7,6 +7,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased] - 2023-08-21
 
 ### Added
+ - Add `taggable` model.
+ - Add `store` method in repository.
+ - Add `StoreTagJob` job.
+
+## [Unreleased] - 2023-08-21
+
+### Added
  - Add `unique` to `slug` in `tags` table migration.
  - Add generate slug in model creating event.
 
