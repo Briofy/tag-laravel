@@ -2,7 +2,7 @@
   "name": "briofy/tag-laravel",
   "description": "The official repository of Tag module from Briofy for Laravel",
   "type": "library",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "authors": [
     {
       "name": "Hosein Danamehr",
