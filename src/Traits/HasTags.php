@@ -9,6 +9,8 @@ trait HasTags
 {
     public function tags(): MorphToMany
     {
-        return $this->morphToMany(Tag::class, 'taggable');
+        $privateKey = config('briofy-tag.database.uuid', false) ? 'uuid' : 'id';
+        $privateKey = 'tag_'.$privateKey;
+        return $this->morphToMany(Tag::class, 'taggable', relatedPivotKey: $privateKey);
     }
 }

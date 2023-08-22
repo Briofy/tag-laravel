@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [Unreleased] - 2023-08-22
+
+### Added
+ - Add `createUniqueSlug` method in `Tag` model.
+ - Add `fillable` property in `Tag` and `Taggable` model.
+
+### Fixed
+ - Fix `store` method bug for taggable class in `TagRepositroy` class.
+ - Fix `HasTags` trait bug for `relatedPivotKey` in taggable class.
+
 ## [Unreleased] - 2023-08-21
 
 ### Added

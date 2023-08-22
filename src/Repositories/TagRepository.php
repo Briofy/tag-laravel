@@ -23,7 +23,11 @@ class TagRepository extends AbstractRepository implements ITagRepository
     {
         $tag = $this->model->firstOrCreate(['name' => $name]);
         if ($taggable) {
-            $tag->taggable()->sync($taggable);
+            $tagId = config('briofy-tag.database.uuid', false) ? 'uuid' : 'id';
+            $model = new \ReflectionClass($taggable['type']);
+            $model = $model->newInstance();
+            $model = $model->find($taggable['id']);
+            $model->tags()->attach($tag[$tagId]);
         }
         return $tag;
     }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class Tag extends Model
@@ -14,6 +15,8 @@ class Tag extends Model
     use HasFactory, SoftDeletes;
 
     private $uuids = false;
+
+    public array $fillables = ['name', 'slug'];
 
     public function __construct(array $attributes = [])
     {
@@ -24,10 +27,14 @@ class Tag extends Model
             $this->primaryKey = 'uuid';
             $this->keyType = 'string';
             $this->incrementing = false;
+            $this->fillables[] = 'uuid';
         }
     }
 
-    protected $fillable = [ 'name', 'slug'];
+    public function setFillable(array $fillable): void
+    {
+        $this->fillable = $this->fillables;
+    }
 
     protected $hidden = ['pivot'];
 
@@ -36,33 +43,32 @@ class Tag extends Model
         return TagFactory::new();
     }
 
-    protected function initializeTraits()
-    {
-        parent::initializeTraits();
-        if($this->uuids){
-            $this->bootHasUuids();
-        }
-    }
-
-    protected static function bootHasUuids()
-    {
-        static::creating(function ($model) {
-            if (!$model->getKey()) {
-                $model->{$model->getKeyName()} = (string) Str::orderedUuid();
-            }
-        });
-    }
-
     public static function boot()
     {
         parent::boot();
 
         static::creating(function ($tag) {
-            $tag->slug = Str::slug($tag->name);
+            if(Schema::hasColumn($tag->getTable(), 'uuid')) $tag->uuid = (string) Str::orderedUuid();
+            $tag->slug = self::createUniqueSlug($tag->name);
         });
     }
 
-    public function taggables(): HasMany
+    protected static function createUniqueSlug($name, $maxAttempts = 10)
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $attempt = 1;
+
+        while (static::where('slug', $slug)->exists() && $attempt <= $maxAttempts) {
+            $slug = $originalSlug . '-' . $attempt;
+            $attempt++;
+        }
+
+        return $slug;
+    }
+
+
+    public function taggable(): HasMany
     {
         return $this->hasMany(Taggable::class);
     }
